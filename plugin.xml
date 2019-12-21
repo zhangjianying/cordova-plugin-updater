@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-updater" version="1.0.0"
+xmlns="http://apache.org/cordova/ns/plugins/1.0"
+xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>应用升级插件</name>
+    <js-module name="AppUpdater" src="www/appUpdater.js">
+        <clobbers target="AppUpdater" />
+    </js-module>
+
+ 		<name>升级插件</name>
+    <description>
+        Android端升级插件
+    </description>
+    <license>MIT</license>
+
+		 <engines>
+        <engine name="cordova" version=">=6.0.0" />
+    </engines>
+
+	<platform name="android">
+
+		<source-file src="src/android/AppUpdaterPlugin.java"
+			target-dir="src/com/zsoftware"/>
+
+		<config-file target="res/xml/config.xml" parent="/*">
+		  <feature name="AppUpdater">
+			<param name="android-package" value="com.zsoftware.AppUpdaterPlugin"/>
+		  </feature>
+		</config-file>
+
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+			 <uses-permission android:name="android.permission.INTERNET"/>
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+			<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+		</config-file>
+
+		<framework src="src/android/AppUpdater.gradle" custom="true" type="gradleReference"/>
+
+		<resource-file src="src/android/updater-release.aar" target="libs/updater-release.aar"/>
+
+  </platform>
+</plugin>
